@@ -61,4 +61,9 @@ Resource:
 Resource:
 -  https://stackoverflow.com/questions/10565868/multi-layer-perceptron-mlp-architecture-criteria-for-choosing-number-of-hidde
 
-
+**Q: When I tried to run the model on GPU in my local machine it gave CUDA Driver Error/RuntimeError**
+ 
+   Most ML Libraries require Nvidia GPU with Compute Capability 3.0 or higher. Same is for PyTorch. GoTo following link and take a look at your GPU Model Number under category, if the compute capability is less than 3.0 then you can't run on GPU.
+    Link :  https://developer.nvidia.com/cuda-gpus
+  
+  
