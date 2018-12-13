@@ -43,3 +43,34 @@ Tokenized review:
 IOPut data rate exceeded.
 
  A: You're trying to print too many items and jupyter notebook. Might be something wrong with your `reviews_ints`.
+ 
+  ### Q8 My sentimental RNN is training extremely slow (under windows). Does anyone have the same problem?
+
+Running on colab is much faster. And it will be helpful for you to run your LAB.
+
+Steps to use the Colab:
+
+1. Go to colab: https://colab.research.google.com/
+2. Upload your notebook: ex.: Part 8 - Transfer Learning (Exercises).ipynb
+3. Go to Runtime (menu) and Change Runtime type and choice GPU.
+4. You'll still need to use the code below into your code:
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+5. You’ll need:
+a. Add code cell
+b.Then copy and past the code below (import Pytorch):
+
+running_on_google_colab = True
+if running_on_google_colab:
+  from os.path import exists
+  from wheel.pep425tags import get_abbr_impl, get_impl_ver, get_abi_tag
+  platform = '{}{}-{}'.format(get_abbr_impl(), get_impl_ver(), get_abi_tag())
+  cuda_output = !ldconfig -p|grep cudart.so|sed -e 's/.*\.\([0-9]*\)\.\([0-9]*\)$/cu\1\2/'
+  accelerator = cuda_output[0] if exists('/dev/nvidia0') else 'cpu'
+
+  !pip install -q http://download.pytorch.org/whl/{accelerator}/torch-0.4.1-{platform}-linux_x86_64.whl torchvision
+  
+  !pip install Pillow==4.1.1
+
+6. Continue your code normally.
