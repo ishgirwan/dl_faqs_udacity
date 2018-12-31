@@ -154,5 +154,13 @@ answer by @Clement
   In other words,
 
   torch.load(“filepath”, map_location=“cpu”) 
+  
+  **Q23 Runtime error: elements 0 of tensor does not require grad and does not have grad_fn**
+  answer by @sundeep
+  - This error occurs because the individual has incorrectly replaced the pretrained model's last layer with the user-defined classifier. For example, if any variant of the resent model is being used to train your data, the last layer of the model's attribute that you will need to replace is `model.fc`. If, however, you have replaced `fc` with `classifier`, like so, `model.classifier = your_classifier`, you are likely to encounter this error. 
+  
+  To avoid the error, `print(model)`, and inspect the last layer, it should show the tuple name for the classifier. For most models in `torchvision`, the name of the linear layer in the last stage is either `fc` or `classifier`.
+  
+  Finally, when you call the optimizer, make sure you are passing in the revised model parameters like so, `model.fc.parameters()`, for resnet variant; this is so that you only want to retrain the user-defined classifier
 
 
